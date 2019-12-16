@@ -32,16 +32,24 @@ set -- "${POSITIONAL[@]}"
 
 if [[ $CLEAN == "" ]] || [[ $CLEAN == "n" ]]; then
     CLEAN="n"
-    echo "Making dirty"
+    echo -e "\e[33m=======================\e[0m"
+    echo -e "\e[33m     Making dirty      \e[0m"
+    echo -e "\e[33m=======================\e[0m"
 else
     CLEAN="n"
-    echo "Making clean"
+    echo -e "\e[33m=======================\e[0m"
+    echo -e "\e[33m     Making clean      \e[0m"
+    echo -e "\e[33m=======================\e[0m"
         
     if [[ $DEFCONFIG == "" ]]; then
         DEFCONFIG="lineage_oneplus5_defconfig"
-        echo "Using default defconfig: lineage_oneplus5_defconfig"
+        echo -e "\e[33m=======================================================\e[0m"
+        echo -e "\e[33m  Using default defconfig: lineage_oneplus5_defconfig\e[0m"
+        echo -e "\e[33m=======================================================\e[0m"
     else
-        echo "Selected defconfig: ${DEFCONFIG}"
+        echo -e "\e[33m=======================================================\e[0m"
+        echo -e "\e[33m  Selected defconfig: ${DEFCONFIG}\e[0m"
+        echo -e "\e[33m=======================================================\e[0m"
     fi
     
     make O=out clean
@@ -51,11 +59,15 @@ fi
 
 if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
     CLANG="y"
-    echo "Building with Clang"
+    echo -e "\e[33m=======================\e[0m"
+    echo -e "\e[33m  Building with Clang  \e[0m"
+    echo -e "\e[33m=======================\e[0m"
     make -j4 O=out ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android-
 else
     CLANG="n"
-    echo "Building with GCC"
+    echo -e "\e[33m=======================\e[0m"
+    echo -e "\e[33m   Building with GCC   \e[0m"
+    echo -e "\e[33m=======================\e[0m"
     make O=out -j$(nproc --all) CROSS_COMPILE=/home/timi/caf10_custom/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 fi
 
