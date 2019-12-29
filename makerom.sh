@@ -10,10 +10,9 @@ make api-stubs-docs
 make hiddenapi-lists-docs
 make system-api-stubs-docs
 make test-api-stubs-docs
-make kronic
 
 make otapackage -j$(nproc --all)
 
-lunch aosp_dumpling-userdebug
+#lunch aosp_dumpling-userdebug
 
-make otapackage -j$(nproc --all)
+#make otapackage -j$(nproc --all)
