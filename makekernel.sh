@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export PATH="/home/timi/caf10_custom/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:${PATH}"
-export PATH="/home/timi/caf10_custom/prebuilts/clang/host/linux-x86/clang-r353983c/bin:${PATH}"
+export PATH="/home/timi/caf10/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:${PATH}"
+export PATH="/home/timi/caf10/prebuilts/clang/host/linux-x86/clang-r353983c/bin:${PATH}"
 export ARCH=arm64
 export SUBARCH=arm64
 
@@ -78,7 +78,7 @@ else
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make O=out -j$(nproc --all) CROSS_COMPILE=/home/timi/caf10_custom/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+    make O=out -j$(nproc --all) CROSS_COMPILE=/home/timi/caf10/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 
     if [ $? -eq 0 ];then
         echo -e "\e[32m=======================\e[0m"
