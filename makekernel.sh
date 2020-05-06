@@ -79,7 +79,11 @@ if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -j$(nproc --all) O=out ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android-
+    make -j$(nproc --all) O=out \
+                          ARCH=arm64 \
+                          CC=clang \
+                          CLANG_TRIPLE=aarch64-linux-gnu- \
+                          CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
         echo -e "\e[32m=======================\e[0m"
