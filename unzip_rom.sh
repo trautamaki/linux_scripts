@@ -63,12 +63,12 @@ python ${SDAT2IMG} ${DIR}/vendor.transfer.list ${DIR}/vendor.new.dat ${DIR}/vend
 
 echo "Mounting system"
 mkdir ${DIR}/system
-mount ${DIR}/system.img ${DIR}system/ || { echo 'Mounting system failed' ; exit 1; }
+mount ${DIR}/system.img ${DIR}/system/ || { echo 'Mounting system failed' ; exit 1; }
 
 echo "Mounting system/vendor"
 rm -rf ${DIR}/system/vendor
 mkdir ${DIR}/system/vendor
-mount ${DIR}/vendor.img ${DIR}/system/vendor/ || { echo 'Mounting system failed' ; exit 1; }
+mount ${DIR}/vendor.img ${DIR}/system/vendor/ || { echo 'Mounting vendor failed' ; exit 1; }
 
 sudo chown -R $USER:$USER ${DIR}
 
