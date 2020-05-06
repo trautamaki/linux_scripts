@@ -29,7 +29,7 @@ fi
 
 . build/envsetup.sh
 
-export USE_CCACHE=1
+export USE_CCACHE=true
 export CCACHE_EXEC=/usr/bin/ccache
 export WITH_ROOT=true
 

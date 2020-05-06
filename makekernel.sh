@@ -22,6 +22,8 @@ fi
 export ARCH=arm64
 export SUBARCH=arm64
 
+export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9//bin/arm-linux-androideabi-"
+
 POSITIONAL=()
 while [[ $# -gt 0 ]]
 do
