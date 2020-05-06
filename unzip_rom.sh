@@ -18,11 +18,6 @@ case $key in
     shift
     shift
     ;;
-    -b|--brotli)
-    BROTLI=true
-    shift
-    shift
-    ;;
 esac
 done
 set -- "${POSITIONAL[@]}"
@@ -50,7 +45,7 @@ unzip -o ${ZIP} system.transfer.list system.new.dat* vendor.transfer.list vendor
     -d ${DIR} || { echo 'Unzipping failed' ; exit 1; }
 
 # Handle brotli compressed files
-if [[ $BROTLI ]]; then
+if [[ ! -f ${DIR}/*.br ]]; then
     rm ${DIR}/system.new.dat
     rm ${DIR}/vendor.new.dat
     echo "Decompressing brotli files"
