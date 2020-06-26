@@ -4,5 +4,5 @@ git config --global alias.hubchp '! git fetch $(echo $1 | cut -d / -f-5) && git 
 
 echo "set tabsize 4" >> ~/.nanorc
 echo "set tabstospaces" >> ~/.nanorc
-echo "set autoindent" >> ~/.nanorc
+#echo "set autoindent" >> ~/.nanorc
 echo "set tabstospaces" >> ~/.nanorc
