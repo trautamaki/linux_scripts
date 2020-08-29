@@ -3,7 +3,7 @@
 default_abi="~/caf10/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin"
 default_clang="~/caf10/prebuilts/clang/host/linux-x86/clang-r353983c/bin"
 
-if [[ ${PATH} == *"clang-"* ]]; then
+if [[ ${PATH} == *"clang"* ]]; then
     echo "Clang found in PATH"
 else
     echo "Clang not found in PATH"
@@ -22,7 +22,7 @@ fi
 export ARCH=arm64
 export SUBARCH=arm64
 
-export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9//bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -78,6 +78,7 @@ fi
 
 if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
     CLANG="y"
+    START=$(date +"%s")
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
@@ -88,28 +89,41 @@ if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
                           CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
+        END=$(date +"%s")
+        DIFF=$(($END - $START))
         echo -e "\e[32m=======================\e[0m"
-        echo -e "\e[32m   Compile successful  \e[0m"
+        echo -e "\e[32m Compile successful in \e[0m"
+        echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[32m=======================\e[0m"
     else
+        END=$(date +"%s")
+        DIFF=$(($END - $START))
         echo -e "\e[91m=======================\e[0m"
         echo -e "\e[91m        FAILED         \e[0m"
+        echo -e "\e[91m        $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[91m=======================\e[0m"
     fi
 else
     CLANG="n"
+    START=$(date +"%s")
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
     make O=out -j$(nproc --all) CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
+        END=$(date +"%s")
+        DIFF=$(($END - $START))
         echo -e "\e[32m=======================\e[0m"
-        echo -e "\e[32m   Compile successful  \e[0m"
+        echo -e "\e[32m Compile successful in \e[0m"
+        echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[32m=======================\e[0m"
     else
+        END=$(date +"%s")
+        DIFF=$(($END - $START))
         echo -e "\e[91m=======================\e[0m"
-        echo -e "\e[91m        FAILED         \e[0m"
+        echo -e "\e[91m      FAILED in        \e[0m"
+        echo -e "\e[91m      $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[91m=======================\e[0m"
     fi
 fi

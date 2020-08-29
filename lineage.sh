@@ -10,4 +10,4 @@ make hiddenapi-lists-docs
 make system-api-stubs-docs
 make test-api-stubs-docs
 
-make otapackage -j$(nproc --all)
+brunch cheeseburger
