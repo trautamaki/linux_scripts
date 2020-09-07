@@ -5,8 +5,7 @@ default_clang="~/caf10/prebuilts/clang/host/linux-x86/clang-r353983c/bin"
 
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE_ARM32=
-	"/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
     cp out/arch/arm64/boot/Image.gz-dtb zip/
