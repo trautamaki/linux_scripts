@@ -1,5 +1,13 @@
 #!/bin/bash
 
+zip_kernel () {
+    cp out/arch/arm64/boot/Image.gz-dtb zip
+    cd zip
+    rm kernel.zip
+    zip -r kernel.zip .
+    cp kernel.zip /var/www/html/
+}
+
 default_abi="~/caf10/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin"
 default_clang="~/caf10/prebuilts/clang/host/linux-x86/clang-r353983c/bin"
 
@@ -95,6 +103,7 @@ if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
         echo -e "\e[32m Compile successful in \e[0m"
         echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[32m=======================\e[0m"
+        zip_kernel
     else
         END=$(date +"%s")
         DIFF=$(($END - $START))
@@ -118,6 +127,7 @@ else
         echo -e "\e[32m Compile successful in \e[0m"
         echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
         echo -e "\e[32m=======================\e[0m"
+        zip_kernel
     else
         END=$(date +"%s")
         DIFF=$(($END - $START))
@@ -127,4 +137,3 @@ else
         echo -e "\e[91m=======================\e[0m"
     fi
 fi
-
