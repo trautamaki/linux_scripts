@@ -32,14 +32,14 @@ fail () {
 	echo -e "\e[91m      FAILED in        \e[0m"
 	echo -e "\e[91m      $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
 	echo -e "\e[91m=======================\e[0m"
-} 
+}
 
 clean () {
     CLEAN="y"
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m     Making clean      \e[0m"
     echo -e "\e[33m=======================\e[0m"
-        
+
     if [[ $DEFCONFIG == "" ]]; then
         DEFCONFIG="lineage_oneplus5_defconfig"
         echo -e "\e[33m=======================================================\e[0m"
@@ -50,10 +50,10 @@ clean () {
         echo -e "\e[33m  Selected defconfig: ${DEFCONFIG}\e[0m"
         echo -e "\e[33m=======================================================\e[0m"
     fi
-    
-    make O=out clean
-    make O=out mrproper
-    make O=out "${DEFCONFIG}"
+
+    make O=out clean -s
+    make O=out mrproper -s
+    make O=out "${DEFCONFIG}" -s
 }
 
 make_gcc () {
@@ -62,8 +62,7 @@ make_gcc () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -j$(nproc --all) O=out 
-						  CROSS_COMPILE=aarch64-linux-android-
+    make -s -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
 		finish
@@ -78,11 +77,11 @@ make_clang () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -j$(nproc --all) O=out \
-                          ARCH=arm64 \
-                          CC=clang \
-                          CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE=aarch64-linux-android-
+    make -s -j$(nproc --all) O=out \
+                             ARCH=arm64 \
+                             CC=clang \
+                             CLANG_TRIPLE=aarch64-linux-gnu- \
+                             CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
         finish
