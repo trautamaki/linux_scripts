@@ -9,11 +9,13 @@ export SUBARCH=arm64
 export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
+    echo -e "Zipping kernel..."
     cp out/arch/arm64/boot/Image.gz-dtb zip/
     cd zip
-    rm kernel.zip
-    zip -r kernel.zip .
+    rm kernel.zip &> /dev/null
+    zip -r kernel.zip . &> /dev/null
     cp kernel.zip /var/www/html/
+    echo -e "Kernel zipped!"
 }
 
 finish () {
