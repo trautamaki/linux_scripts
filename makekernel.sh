@@ -1,8 +1,9 @@
 #!/bin/bash
 
-default_abi="~/caf10/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin"
-default_clang="~/caf10/prebuilts/clang/host/linux-x86/clang-r353983c/bin"
+default_abi="~/aarch64-linux-android-4.9/bin"
+default_clang="~/clang-10-0-6/bin"
 
+export PATH="${PATH}:/root/clang-10-0-6/bin:/root/aarch64-linux-android-4.9/bin"
 export ARCH=arm64
 export SUBARCH=arm64
 export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
