@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_abi="~/aarch64-linux-android-4.9/bin"
+default_gcc="~/aarch64-linux-android-4.9/bin"
 default_clang="~/clang-10-0-6/bin"
 
 export PATH="${PATH}:/root/clang-10-0-6/bin:/root/aarch64-linux-android-4.9/bin"
@@ -93,20 +93,21 @@ make_clang () {
     fi
 }
 
-if [[ ${PATH} == *"clang"* ]]; then
-    echo "Clang found in PATH"
-else
-    echo "Clang not found in PATH"
-    echo "Using default Clang path"
+path_clang=$(which clang)
+path_gcc=$(which aarch64-linux-android-gcc)
+
+if [ -x "$path_clang" ] ; then
+    echo "CLANG found in PATH: $path_clang"
+ else
+    echo "CLANG not found in PATH, using default: ${default_clang}"
     export PATH="${default_clang}:${PATH}"
 fi
 
-if [[ ${PATH} == *"aarch64-linux-android-4.9"* ]]; then
-    echo "GCC found in PATH"
+if [ -x "$path_gcc" ] ; then
+    echo "GCC found in PATH: $path_gcc"
 else
-    echo "GCC not found in PATH"
-    echo "Using default GCC path"
-    export PATH="${default_abi}:${PATH}"
+	echo "GCC not found in PATH, using default: ${default_gcc}"
+    export PATH="${default_gcc}:${PATH}"
 fi
 
 POSITIONAL=()
