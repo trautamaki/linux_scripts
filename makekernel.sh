@@ -1,7 +1,7 @@
 #!/bin/bash
 
 default_abi="~/aarch64-linux-android-4.9/bin"
-default_clang="~/clang-10-0-6/bin"
+default_gcc="~/clang-10-0-6/bin"
 
 export PATH="${PATH}:/root/clang-10-0-6/bin:/root/aarch64-linux-android-4.9/bin"
 export ARCH=arm64
@@ -65,7 +65,7 @@ make_gcc () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -s -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
+    make -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
 		finish
@@ -80,7 +80,7 @@ make_clang () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -s -j$(nproc --all) O=out \
+    make -j$(nproc --all) O=out \
                              ARCH=arm64 \
                              CC=clang \
                              CLANG_TRIPLE=aarch64-linux-gnu- \
@@ -93,20 +93,21 @@ make_clang () {
     fi
 }
 
-if [[ ${PATH} == *"clang"* ]]; then
-    echo "Clang found in PATH"
+path_clang=$(which clang)
+path_gcc=$(which aarch64-linux-android-gcc)
+
+if [ -x "$path_clang" ] ; then
+    echo "CLANG found in PATH: $path_clang"
 else
-    echo "Clang not found in PATH"
-    echo "Using default Clang path"
+    echo "CLANG not found in PATH, using default: ${default_clang}"
     export PATH="${default_clang}:${PATH}"
 fi
 
-if [[ ${PATH} == *"aarch64-linux-android-4.9"* ]]; then
-    echo "GCC found in PATH"
+if [ -x "$path_gcc" ] ; then
+    echo "GCC found in PATH: $path_gcc"
 else
-    echo "GCC not found in PATH"
-    echo "Using default GCC path"
-    export PATH="${default_abi}:${PATH}"
+    echo "GCC not found in PATH, using default: ${default_gcc}"
+    export PATH="${default_gcc}:${PATH}"
 fi
 
 POSITIONAL=()
