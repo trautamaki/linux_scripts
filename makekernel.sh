@@ -65,7 +65,7 @@ make_gcc () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -s -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
+    make -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
 		finish

@@ -45,7 +45,7 @@ unzip -o ${ZIP} system.transfer.list system.new.dat* vendor.transfer.list vendor
     -d ${DIR} || { echo 'Unzipping failed' ; exit 1; }
 
 # Handle brotli compressed files
-if [[ -f ${DIR}/*.br ]]; then
+if ls ${DIR}/*.br 1> /dev/null 2>&1; then
     rm ${DIR}/system.new.dat
     rm ${DIR}/vendor.new.dat
     echo "Decompressing brotli files"
