@@ -1,12 +1,11 @@
 #!/bin/bash
 
-default_gcc="~/aarch64-linux-android-4.9/bin"
-default_clang="~/clang-10-0-6/bin"
+default_gcc="/root/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
+default_clang="/root/lineage-17.1/prebuilts/clang/host/linux-x86/clang-r353983d/bin/"
 
-export PATH="${PATH}:/root/clang-10-0-6/bin:/root/aarch64-linux-android-4.9/bin"
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE_ARM32="/root/caf10/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="/root/lineage-17.1/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
     echo -e "Zipping kernel..."
@@ -56,7 +55,7 @@ clean () {
 
     make O=out clean -s
     make O=out mrproper -s
-    make O=out "${DEFCONFIG}" -s
+    make O=out "${DEFCONFIG}"
 }
 
 make_gcc () {
@@ -80,11 +79,11 @@ make_clang () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -s -j$(nproc --all) O=out \
-                             ARCH=arm64 \
-                             CC=clang \
-                             CLANG_TRIPLE=aarch64-linux-gnu- \
-                             CROSS_COMPILE=aarch64-linux-android-
+    make -j$(nproc --all) O=out \
+                          ARCH=arm64 \
+                          CC=clang \
+                          CLANG_TRIPLE=aarch64-linux-gnu- \
+                          CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
         finish
@@ -106,9 +105,11 @@ fi
 if [ -x "$path_gcc" ] ; then
     echo "GCC found in PATH: $path_gcc"
 else
-	echo "GCC not found in PATH, using default: ${default_gcc}"
+    echo "GCC not found in PATH, using default: ${default_gcc}"
     export PATH="${default_gcc}:${PATH}"
 fi
+
+echo "${PATH}"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
