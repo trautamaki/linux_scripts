@@ -1,11 +1,11 @@
 #!/bin/bash
 
-default_gcc="/root/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
-default_clang="/root/lineage-17.1/prebuilts/clang/host/linux-x86/clang-r353983d/bin/"
+default_gcc="/root/lineage-18.0/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
+default_clang="/root/lineage-18.0/prebuilts/clang/host/linux-x86/clang-r353983d/bin/"
 
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE_ARM32="/root/lineage-17.1/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="/root/lineage-18.0/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
     echo -e "Zipping kernel..."

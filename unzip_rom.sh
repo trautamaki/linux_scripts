@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SDAT2IMG=~/sdat2img/sdat2img.py
+SDAT2IMG=~/sdat2img.py
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
