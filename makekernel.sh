@@ -1,7 +1,7 @@
 #!/bin/bash
 
 default_gcc="/root/lineage-18.0/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
-default_clang="/root/lineage-18.0/prebuilts/clang/host/linux-x86/clang-r353983d/bin/"
+default_clang="/root/lineage-18.0/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -9,7 +9,7 @@ export CROSS_COMPILE_ARM32="/root/lineage-18.0/prebuilts/gcc/linux-x86/arm/arm-l
 
 zip_kernel () {
     echo -e "Zipping kernel..."
-    cp out/arch/arm64/boot/Image.gz-dtb zip/
+    cp .out/arch/arm64/boot/Image.gz-dtb zip/
     cd zip
     rm kernel.zip &> /dev/null
     zip -r kernel.zip . &> /dev/null
@@ -53,9 +53,9 @@ clean () {
         echo -e "\e[33m=======================================================\e[0m"
     fi
 
-    make O=out clean -s
-    make O=out mrproper -s
-    make O=out "${DEFCONFIG}"
+    make O=.out clean -s
+    make O=.out mrproper -s
+    make O=.out "${DEFCONFIG}"
 }
 
 make_gcc () {
@@ -64,7 +64,7 @@ make_gcc () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m   Building with GCC   \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -j$(nproc --all) O=out CROSS_COMPILE=aarch64-linux-android-
+    make -j$(nproc --all) O=.out CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
 		finish
@@ -79,7 +79,7 @@ make_clang () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -j$(nproc --all) O=out \
+    make -s -j$(nproc --all) O=.out \
                           ARCH=arm64 \
                           CC=clang \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
