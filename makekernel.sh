@@ -111,8 +111,6 @@ else
     export PATH="${default_gcc}:${PATH}"
 fi
 
-echo "${PATH}"
-
 POSITIONAL=()
 while [[ $# -gt 0 ]]
 do
