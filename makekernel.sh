@@ -9,9 +9,8 @@ export CROSS_COMPILE_ARM32="/root/lineage-18.0/prebuilts/gcc/linux-x86/arm/arm-l
 
 zip_kernel () {
     echo -e "Zipping kernel..."
-    cp .out/arch/arm64/boot/Image.gz-dtb zip/
-    cd zip
-    rm kernel.zip &> /dev/null
+    cp .out/arch/arm64/boot/Image.gz-dtb $ZIP/
+    cd $ZIP
     zip -r kernel.zip . &> /dev/null
     cp kernel.zip /var/www/html/
     echo -e "Kernel zipped!"
@@ -24,7 +23,10 @@ finish () {
 	echo -e "\e[32m Compile successful in \e[0m"
 	echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
 	echo -e "\e[32m=======================\e[0m"
-	zip_kernel
+
+    if [[ $ZIP != "" ]]; then
+        zip_kernel
+    fi
 }
 
 fail () {
@@ -129,6 +131,11 @@ case $key in
     ;;
     -d|--defconfig)
     DEFCONFIG="$2"
+    shift
+    shift
+    ;;
+    -z|--zip)
+    ZIP="$2"
     shift
     shift
     ;;

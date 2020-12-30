@@ -41,7 +41,7 @@ rm -rf ${DIR}/system/vendor
 rm -rf ${DIR}/system
 mkdir ${DIR}
 
-unzip -o ${ZIP} system.transfer.list system.new.dat* vendor.transfer.list vendor.new.dat* \
+unzip -o ${ZIP} system.transfer.list system.new.dat* vendor.transfer.list vendor.new.dat*  \
     -d ${DIR} || { echo 'Unzipping failed' ; exit 1; }
 
 # Handle brotli compressed files

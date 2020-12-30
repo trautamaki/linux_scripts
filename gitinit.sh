@@ -16,3 +16,6 @@ echo "set tabstospaces" >> ~/.nanorc
 echo "set tabstospaces" >> ~/.nanorc
 
 echo "alias mergecommon='git fetch https://android.googlesource.com/kernel/common android-4.4-p && git merge FETCH_HEAD'" >> ~/.bashrc
+
+echo "alias gerritremote='url=`git config --get remote.origin.url`; alias gerritremote='git remote add gerrit ssh://rautamak@review.lineageos.org:29418/LineageOS/${url##*/}'" >> ~/.bashrc
+echo "alias rmoldblobs='for file in $(git diff HEAD^..HEAD -U0 -- msm8998-common/msm8998-common-vendor.mk | grep '^[-]' | grep -Ev '^(--- a/|\+\+\+ b/)' | sed -e 's/.*-    \(.*\):.*/\1/'); do rm ../../$file; done'" >> ~/.bashrc
