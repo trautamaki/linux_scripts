@@ -1,11 +1,19 @@
 #!/bin/bash
 
-default_gcc="/root/lineage-18.0/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
-default_clang="/root/lineage-18.0/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
+# Command line args:
+#
+#  --clang : y/n, default y, build with GCC if n
+#  --clean : y/n, default y
+#  --defconfig : defconfig name, default lineage_oneplus5_defconfig
+#  --zip : Anykernel2 directory, if set, zip kernel and cp to /var/www/html
+#
+
+default_gcc="/root/los/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
+default_clang="/root/los/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
 
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE_ARM32="/root/lineage-18.0/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="/root/los/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
     echo -e "Zipping kernel..."
