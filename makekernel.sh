@@ -8,12 +8,12 @@
 #  --zip : Anykernel2 directory, if set, zip kernel and cp to /var/www/html
 #
 
-default_gcc="/root/los/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
-default_clang="/root/los/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
+default_gcc="~/lineage-18.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
+default_clang="~/lineage-18.1/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
 
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE_ARM32="/root/los/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export CROSS_COMPILE_ARM32="~/lineage-18.1/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 
 zip_kernel () {
     echo -e "Zipping kernel..."
