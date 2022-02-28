@@ -8,8 +8,8 @@
 #  --zip : Anykernel2 directory, if set, zip kernel and cp to /var/www/html
 #
 
-default_gcc="~/lineage-18.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
-default_clang="~/lineage-18.1/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
+default_gcc="/home/timi/lineage-18.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/"
+default_clang="/home/timi/lineage-18.1/prebuilts/clang/host/linux-x86/clang-r383902b/bin/"
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -25,12 +25,12 @@ zip_kernel () {
 }
 
 finish () {
-	END=$(date +"%s")
-	DIFF=$(($END - $START))
-	echo -e "\e[32m=======================\e[0m"
-	echo -e "\e[32m Compile successful in \e[0m"
-	echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
-	echo -e "\e[32m=======================\e[0m"
+    END=$(date +"%s")
+    DIFF=$(($END - $START))
+    echo -e "\e[32m=======================\e[0m"
+    echo -e "\e[32m Compile successful in \e[0m"
+    echo -e "\e[32m     $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
+    echo -e "\e[32m=======================\e[0m"
 
     if [[ $ZIP != "" ]]; then
         zip_kernel
@@ -38,12 +38,12 @@ finish () {
 }
 
 fail () {
-	END=$(date +"%s")
-	DIFF=$(($END - $START))
-	echo -e "\e[91m=======================\e[0m"
-	echo -e "\e[91m      FAILED in        \e[0m"
-	echo -e "\e[91m      $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
-	echo -e "\e[91m=======================\e[0m"
+    END=$(date +"%s")
+    DIFF=$(($END - $START))
+    echo -e "\e[91m=======================\e[0m"
+    echo -e "\e[91m      FAILED in        \e[0m"
+    echo -e "\e[91m      $(($DIFF / 60)) min $(($DIFF % 60)) s  \e[0m"
+    echo -e "\e[91m=======================\e[0m"
 }
 
 clean () {
@@ -77,9 +77,9 @@ make_gcc () {
     make -j$(nproc --all) O=.out CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
-		finish
+        finish
     else
-		fail
+        fail
     fi
 }
 
@@ -89,11 +89,10 @@ make_clang () {
     echo -e "\e[33m=======================\e[0m"
     echo -e "\e[33m  Building with Clang  \e[0m"
     echo -e "\e[33m=======================\e[0m"
-    make -s -j$(nproc --all) O=.out \
-                          ARCH=arm64 \
-                          CC=clang \
-                          CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE=aarch64-linux-android-
+
+    make -s -j$(nproc --all) O=.out ARCH=arm64 \
+            CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
+            CROSS_COMPILE=aarch64-linux-android-
 
     if [ $? -eq 0 ];then
         finish
@@ -159,7 +158,7 @@ else
 fi
 
 if [[ $CLANG == "" ]] || [[ $CLANG == "y" ]] || [[ $CLANG == "clang" ]]; then
-	make_clang
+    make_clang
 else
-	make_gcc
+    make_gcc
 fi
