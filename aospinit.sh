@@ -37,15 +37,6 @@ brunchtv () {
     unset WITH_GMS_TV
 }
 
-# Sideload
-# arg1: ZIP to sideload
-sload () {
-    adb reboot sideload
-    adb wait-for-sideload
-    adb sideload $1
-    adb reboot
-}
-
 # Build an app, push it and restart the app
 # arg1: app target
 # arg2: app package name
