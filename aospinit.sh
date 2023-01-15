@@ -48,3 +48,29 @@ mkapp () {
     adb shell monkey -p $2 -c android.intent.category.LAUNCHER 1
 }
 
+lbreakfast () {
+    . build/envsetup.sh
+    b=$(breakfast $1)
+    arch=$(echo $b | grep -m 1 "TARGET_ARCH")
+    arch=${arch#*TARGET_ARCH=}
+    device_dir=$(find device -type d -name $1 | head -1)
+    kernel_source=$(findkernelsrc $device_dir)
+    version_var=$(grep -i -m 1 VERSION $kernel_source/Makefile)
+    patchlevel_var=$(grep -i -m 1 PATCHLEVEL $kernel_source/Makefile)
+    kernel_version=${version_var#*= }.${patchlevel_var#*= }
+    export OUT_DIR_COMMON_BASE=/zfs/android-out-$arch-$kernel_version
+    breakfast $1
+}
+
+findkernelsrc () {
+    search_dir=$1
+    if grep -q TARGET_KERNEL_SOURCE $search_dir/BoardConfig*; then
+        src_var=$(grep -i TARGET_KERNEL_SOURCE $search_dir/BoardConfig*)
+        src_path=${src_var#*=}
+        echo $src_path | xargs
+    else
+        jq -c ".[]" $search_dir/lineage.dependencies | while read i; do
+            findkernelsrc $(echo $i | jq ".target_path" | tr -d '"')
+        done
+    fi
+}
